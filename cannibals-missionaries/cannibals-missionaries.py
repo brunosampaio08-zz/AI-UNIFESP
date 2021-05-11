@@ -1,9 +1,9 @@
 from collections import deque
 
 class state():
-    def __init__(self, leftCanibals, rightCanibals, leftMissionaries, rightMissionaries, boatSide):
-        self.leftCanibals = leftCanibals
-        self.rightCanibals = rightCanibals
+    def __init__(self, leftCannibals, rightCannibals, leftMissionaries, rightMissionaries, boatSide):
+        self.leftCannibals = leftCannibals
+        self.rightCannibals = rightCannibals
         self.leftMissionaries = leftMissionaries
         self.rightMissionaries = rightMissionaries
         self.boatSide = boatSide
@@ -15,25 +15,25 @@ class state():
             return NotImplemented
 
         #If all attributes are equal, return True
-        return (self.leftCanibals == finalState.leftCanibals and \
-            self.rightCanibals == finalState.rightCanibals and \
+        return (self.leftCannibals == finalState.leftCannibals and \
+            self.rightCannibals == finalState.rightCannibals and \
                 self.leftMissionaries == finalState.leftMissionaries and \
                     self.rightMissionaries == finalState.rightMissionaries and \
                         self.boatSide == finalState.boatSide)
 
     def isValidState(self):
-        #If the number of canibals exceed the number of missionaries and number of missionaries > 0, not a valid state
-        if (self.leftCanibals > self.leftMissionaries and self.leftMissionaries > 0) or \
-            (self.rightCanibals > self.rightMissionaries and self.rightMissionaries > 0):
+        #If the number of cannibals exceed the number of missionaries and number of missionaries > 0, not a valid state
+        if (self.leftCannibals > self.leftMissionaries and self.leftMissionaries > 0) or \
+            (self.rightCannibals > self.rightMissionaries and self.rightMissionaries > 0):
             return False
         
-        #If number of canibals < 0 or missionaries < 0, not a valid state
-        if self.leftCanibals < 0 or self.rightCanibals < 0 or \
+        #If number of cannibals < 0 or missionaries < 0, not a valid state
+        if self.leftCannibals < 0 or self.rightCannibals < 0 or \
             self.rightMissionaries < 0 or self.leftMissionaries < 0:
             return False
 
-        #If number of canibals > 3 or missionaries > 3, not a valid state        
-        if self.leftCanibals > 3 or self.rightCanibals > 3 or \
+        #If number of cannibals > 3 or missionaries > 3, not a valid state        
+        if self.leftCannibals > 3 or self.rightCannibals > 3 or \
             self.rightMissionaries > 3 or self.leftMissionaries > 3:
             return False
 
@@ -41,19 +41,19 @@ class state():
 
 def findChildrenStates(currState):
     childrenStates = []
-    leftC = currState.leftCanibals
+    leftC = currState.leftCannibals
     leftM = currState.leftMissionaries
-    rightC = currState.rightCanibals
+    rightC = currState.rightCannibals
     rightM = currState.rightMissionaries
 
-    #If boat is on the left, we can pass 2 canibals, 1 canibal, 2 missionaries, 1 missionary or 1 of each to the right
+    #If boat is on the left, we can pass 2 cannibals, 1 cannibal, 2 missionaries, 1 missionary or 1 of each to the right
     if currState.boatSide == "left":
         childrenStates.append(state(leftC-2,rightC+2,leftM,rightM,"right"))
         childrenStates.append(state(leftC-1,rightC+1,leftM,rightM,"right"))
         childrenStates.append(state(leftC,rightC,leftM-2,rightM+2,"right"))
         childrenStates.append(state(leftC,rightC,leftM-1,rightM+1,"right"))
         childrenStates.append(state(leftC-1,rightC+1,leftM-1,rightM+1,"right"))
-    #If boat is on the right, we can pass 2 canibals, 1 canibal, 2 missionaries, 1 missionary or 1 of each to the left
+    #If boat is on the right, we can pass 2 cannibals, 1 cannibal, 2 missionaries, 1 missionary or 1 of each to the left
     elif currState.boatSide == "right":
         childrenStates.append(state(leftC+2,rightC-2,leftM,rightM,"left"))
         childrenStates.append(state(leftC+1,rightC-1,leftM,rightM,"left"))
@@ -155,8 +155,8 @@ if __name__ == "__main__":
             aux = L.popleft()
             print(f'Iterarion {i}: \nBoat: {aux.boatSide}')
             print(f"Missionaries left: {aux.leftMissionaries};"\
-                f"Canibals left: {aux.leftCanibals}; \nMissionaries right: {aux.rightMissionaries};"\
-                    f"Canibals right: {aux.rightCanibals};\n")
+                f"Cannibals left: {aux.leftCannibals}; \nMissionaries right: {aux.rightMissionaries};"\
+                    f"Cannibals right: {aux.rightCannibals};\n")
             i += 1
     elif intersectState[2] == "start":
         L = deque()
@@ -174,8 +174,8 @@ if __name__ == "__main__":
             aux = L.popleft()
             print(f'Iterarion {i}:; Boat: {aux.boatSide}')
             print(f"Missionaries left: {aux.leftMissionaries};"\
-                f"Canibals left: {aux.leftCanibals}; Missionaries right: {aux.rightMissionaries};"\
-                    f"Canibals right: {aux.rightCanibals};\n")
+                f"Cannibals left: {aux.leftCannibals}; Missionaries right: {aux.rightMissionaries};"\
+                    f"Cannibals right: {aux.rightCannibals};\n")
             i += 1
 
     if intersectState:
