@@ -20,7 +20,8 @@ if __name__ == "__main__":
         print(f"Iteration {iterations}:")
         for k in range(len(graph)):
             #Optionally restart feromone table for every ant
-            #feromoneTable = [[tau0]*len(graph)]*len(graph)
+            #Usado pra que a saída corresponda as respostas do exercicio teorico
+            feromoneTable = [[tau0]*len(graph)]*len(graph)
             print(f"Ant {chr(k+65)}:")
             nextNode = k
             visited = [0]*len(graph)
@@ -37,18 +38,19 @@ if __name__ == "__main__":
                              if visited[j] == 0 else 0 \
                                  for j in range(len(graph))]
 
-                print("Probabilities:")
-                print([f"{p:.4f}" for p in probability])
+                #print("Probabilities:")
+                #print([f"{p:.4f}" for p in probability])
 
                 #If every node has been visited
                 if sum(probability) == 0 :
                     nextNode = -1
                 else:
                     #If we want the ant to choose randomly by probability
-                    nextNode = nprand.choice(len(graph), replace=False, p=probability)
+                    #nextNode = nprand.choice(len(graph), replace=False, p=probability)
 
                     #If we want the ant to always choose the highest probability path
-                    #nextNode = probability.index(max(probability))
+                    #Usado pra que as saidas correspondam as respostas do exercicio teorico
+                    nextNode = probability.index(max(probability))
             
             #Update all feromones adjacent to starting node
             feromoneTable[k] = [(1-rho)*feromoneTable[k][j]\
